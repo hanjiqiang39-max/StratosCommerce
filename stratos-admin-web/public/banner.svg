@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="420" viewBox="0 0 1440 420" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1440" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0F2FE"/>
+      <stop offset="0.55" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#F1F5F9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="420" fill="url(#bg)"/>
+  <text x="80" y="200" fill="#0F172A" font-size="40" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-weight="700">Stratos Ð%ð</text>
+</svg>

@@ -1,0 +1,8 @@
+# 复制为 application-local.yml 后填写（已被 gitignore）
+# vendor=mock 或未填 key 时 syncTrace 继续用本机 MOCK_STEPS
+# vendor=kuaidi100 且填写 customer/key 后走快递100查询并落库
+logistics:
+  express:
+    vendor: kuaidi100
+    customer: 你的快递100customer
+    key: 你的快递100key

@@ -1,0 +1,60 @@
+dataSources:
+  ds0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/stratos_order_0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  ds1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/stratos_order_1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+rules:
+  - !SHARDING
+    tables:
+      order_info:
+        actualDataNodes: ds$->{0..1}.order_info_$->{0..7}
+        databaseStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: db-inline
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: order-info-inline
+      order_item:
+        actualDataNodes: ds$->{0..1}.order_item_$->{0..7}
+        databaseStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: db-inline
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: order-item-inline
+    bindingTables:
+      - order_info,order_item
+    shardingAlgorithms:
+      db-inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds$->{user_id % 2}
+      order-info-inline:
+        type: INLINE
+        props:
+          algorithm-expression: order_info_$->{user_id % 8}
+      order-item-inline:
+        type: INLINE
+        props:
+          algorithm-expression: order_item_$->{user_id % 8}
+  - !BROADCAST
+    tables:
+      - shopping_cart
+      - order_refund
+      - undo_log
+
+props:
+  sql-show: true

@@ -1,0 +1,5 @@
+# 复制为本目录 application-local.yml 后填写（该文件已被 gitignore）
+# 密钥来自支付宝开放平台沙箱：应用信息 → 接口加签方式「系统默认密钥」→ 公钥模式「查看」
+alipay:
+  private-key: 这里填应用私钥_不要带BEGIN_END
+  alipay-public-key: 这里填支付宝公钥_不要带BEGIN_END

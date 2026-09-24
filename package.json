@@ -1,0 +1,12 @@
+{
+  "name": "stratos-commerce-web",
+  "private": true,
+  "scripts": {
+    "shop": "npm run dev --prefix stratos-shop-web",
+    "admin": "npm run dev --prefix stratos-admin-web",
+    "merchant": "npm run dev --prefix stratos-merchant-web",
+    "shop:build": "npm run build --prefix stratos-shop-web",
+    "admin:build": "npm run build --prefix stratos-admin-web",
+    "merchant:build": "npm run build --prefix stratos-merchant-web"
+  }
+}

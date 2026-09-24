@@ -1,0 +1,78 @@
+server:
+  port: 8092
+
+spring:
+  application:
+    name: stratos-notification
+
+  profiles:
+    active: dev
+
+  config:
+    import:
+      - optional:classpath:application-local.yml
+      - optional:classpath:application-observability.yml
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        username: nacos
+        password: nacos
+      config:
+        enabled: false
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
+        username: nacos
+        password: nacos
+        refresh-enabled: true
+        import-check:
+          enabled: false
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/stratos_notification?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 5000ms
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.stratos.notification.entity
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+
+sms:
+  vendor: mock
+  access-key-id: ${SMS_ACCESS_KEY_ID:}
+  access-key-secret: ${SMS_ACCESS_KEY_SECRET:}
+  sign-name: ${SMS_SIGN_NAME:StratosCommerce}
+  template-code: ${SMS_TEMPLATE_CODE:}
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 10000
+
+logging:
+  level:
+    root: INFO
+    com.stratos.notification: debug

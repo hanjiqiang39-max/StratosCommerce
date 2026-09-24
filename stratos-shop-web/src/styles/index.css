@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #111827;
+  background: #f7f8fa;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.price {
+  color: #e11d48;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.shop-input,
+.shop-select,
+.shop-textarea {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  color: #111827;
+  padding: 0 14px;
+}
+
+.shop-input,
+.shop-select {
+  height: 44px;
+}
+
+.shop-textarea {
+  min-height: 96px;
+  padding: 12px 14px;
+}
+
+.shop-input:focus,
+.shop-select:focus,
+.shop-textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+.shop-btn {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 12px;
+  color: #0284c7;
+  background: #f0f9ff;
+  font-size: 13px;
+}

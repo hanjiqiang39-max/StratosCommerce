@@ -1,0 +1,102 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: stratos-payment
+
+  profiles:
+    active: dev
+
+  config:
+    import:
+      - optional:classpath:application-local.yml
+      - optional:classpath:application-observability.yml
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        username: nacos
+        password: nacos
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
+        username: nacos
+        password: nacos
+        refresh-enabled: true
+        import-check:
+          enabled: false
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/stratos_payment?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 5000ms
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: stratos_tx_group
+  service:
+    vgroup-mapping:
+      stratos_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+  registry:
+    type: file
+  config:
+    type: file
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: stratos-payment-producer
+
+alipay:
+  enabled: true
+  sandbox: true
+  app-id: "9021000168656479"
+  merchant-id: "20887211134909899"
+  gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+  sign-type: RSA2
+  charset: UTF-8
+  format: json
+  notify-url: http://localhost:8080/api/payment/alipay/notify
+  return-url: http://localhost:8080/api/payment/alipay/return
+  shop-return-url: http://localhost:5173/orders
+  private-key: ${ALIPAY_PRIVATE_KEY:}
+  alipay-public-key: ${ALIPAY_PUBLIC_KEY:}
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.stratos.payment.entity
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 10000
+
+logging:
+  level:
+    root: INFO
+    com.stratos.payment: debug

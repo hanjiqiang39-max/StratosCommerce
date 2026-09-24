@@ -1,0 +1,79 @@
+server:
+  port: 8084
+
+spring:
+  config:
+    import: optional:classpath:application-observability.yml
+  application:
+    name: stratos-order
+
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        username: nacos
+        password: nacos
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
+        username: nacos
+        password: nacos
+        refresh-enabled: true
+        import-check:
+          enabled: false
+
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:shardingsphere.yaml
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 3
+
+seata:
+  enabled: false
+  application-id: ${spring.application.name}
+  tx-service-group: stratos_tx_group
+  service:
+    vgroup-mapping:
+      stratos_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+  registry:
+    type: file
+  config:
+    type: file
+
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: stratos-order-producer
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 10000
+
+logging:
+  level:
+    root: INFO
+    com.stratos: DEBUG
+
+knife4j:
+  enable: true
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID

@@ -1,0 +1,8 @@
+# 复制为 application-local.yml 后填写。该文件已被 gitignore，不要提交密钥。
+# 阿里云短信：签名和模板需在短信控制台审核通过，模板变量必须包含 ${code}
+sms:
+  vendor: aliyun
+  access-key-id: 你的AccessKeyId
+  access-key-secret: 你的AccessKeySecret
+  sign-name: 已审核的签名
+  template-code: SMS_xxxxxxxx

@@ -1,0 +1,10 @@
+# 复制为 application-local.yml。微信开放平台网站应用、支付宝开放平台「获取会员信息」开通后填写。
+oauth:
+  wechat:
+    app-id: 微信开放平台AppID
+    app-secret: 微信开放平台AppSecret
+  alipay:
+    sandbox: true
+    app-id: 支付宝应用AppId
+    private-key: 应用私钥
+    alipay-public-key: 支付宝公钥

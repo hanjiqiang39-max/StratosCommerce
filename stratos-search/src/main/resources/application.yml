@@ -1,0 +1,55 @@
+server:
+  port: 8093
+
+spring:
+  config:
+    import: optional:classpath:application-observability.yml
+  application:
+    name: stratos-search
+
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        username: nacos
+        password: nacos
+      config:
+        enabled: false
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
+        username: nacos
+        password: nacos
+        refresh-enabled: true
+        import-check:
+          enabled: false
+
+  elasticsearch:
+    uris: ${ES_URIS:http://localhost:9200}
+    username: ${ES_USERNAME:}
+    password: ${ES_PASSWORD:}
+  data:
+    elasticsearch:
+      repositories:
+        enabled: false
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 5000ms
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 10000
+
+logging:
+  level:
+    root: INFO
+    com.stratos.search: debug

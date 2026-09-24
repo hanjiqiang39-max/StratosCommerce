@@ -1,0 +1,276 @@
+server:
+  port: 8080
+
+spring:
+  config:
+    import: optional:classpath:application-observability.yml
+  application:
+    name: stratos-gateway
+
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        username: nacos
+        password: nacos
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        file-extension: yaml
+        username: nacos
+        password: nacos
+        refresh-enabled: true
+        import-check:
+          enabled: false
+
+    sentinel:
+      eager: true
+      transport:
+        dashboard: localhost:8858
+      scg:
+        fallback:
+          mode: response
+          response-status: 429
+          response-body: '{"code":429,"message":"too many requests","success":false}'
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: stratos-auth
+          uri: lb://stratos-auth
+          predicates:
+            - Path=/auth/**
+        - id: stratos-auth-api
+          uri: lb://stratos-auth
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-user
+          uri: lb://stratos-user
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-user-address
+          uri: lb://stratos-user
+          predicates:
+            - Path=/api/address/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-product
+          uri: lb://stratos-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-order
+          uri: lb://stratos-order
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-order-cart
+          uri: lb://stratos-order
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-payment
+          uri: lb://stratos-payment
+          predicates:
+            - Path=/api/payment/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-promotion-seckill
+          uri: lb://stratos-promotion
+          predicates:
+            - Path=/api/seckill/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-promotion-coupon
+          uri: lb://stratos-promotion
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-promotion-full-discount
+          uri: lb://stratos-promotion
+          predicates:
+            - Path=/api/full-discount/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-promotion-group
+          uri: lb://stratos-promotion
+          predicates:
+            - Path=/api/group/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-promotion
+          uri: lb://stratos-promotion
+          predicates:
+            - Path=/api/promotion/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-inventory
+          uri: lb://stratos-inventory
+          predicates:
+            - Path=/api/inventory/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-logistics
+          uri: lb://stratos-logistics
+          predicates:
+            - Path=/api/logistics/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-message
+          uri: lb://stratos-message
+          predicates:
+            - Path=/api/message/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-message-inbox
+          uri: lb://stratos-message
+          predicates:
+            - Path=/api/inbox/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-merchant-promotion
+          uri: lb://stratos-promotion
+          predicates:
+            - Path=/api/merchant/promotion/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-merchant-product
+          uri: lb://stratos-product
+          predicates:
+            - Path=/api/merchant/product/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-merchant-comment
+          uri: lb://stratos-product
+          predicates:
+            - Path=/api/merchant/comment/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-merchant-order
+          uri: lb://stratos-order
+          predicates:
+            - Path=/api/merchant/order/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-merchant-refund
+          uri: lb://stratos-order
+          predicates:
+            - Path=/api/merchant/refund/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-merchant
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/merchant/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-admin
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/admin/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-role
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/role/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-menu
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/menu/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-dict
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/dict/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-config
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/config/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/system/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-search
+          uri: lb://stratos-search
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-notification
+          uri: lb://stratos-notification
+          predicates:
+            - Path=/api/notification/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-banner
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/banner/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-upload
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/upload/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-system-files
+          uri: lb://stratos-system
+          predicates:
+            - Path=/api/files/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-message-notice
+          uri: lb://stratos-message
+          predicates:
+            - Path=/api/notice/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-user-favorite
+          uri: lb://stratos-user
+          predicates:
+            - Path=/api/favorite/**
+          filters:
+            - StripPrefix=1
+        - id: stratos-product-comment
+          uri: lb://stratos-product
+          predicates:
+            - Path=/api/comment/**
+          filters:
+            - StripPrefix=1
+
+logging:
+  level:
+    root: INFO
+    com.stratos: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

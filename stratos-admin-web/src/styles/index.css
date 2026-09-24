@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#app {
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+}
+
+body {
+  margin: 0;
+  color: #0f172a;
+  background: #f4f6fb;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+.admin-card {
+  overflow: hidden;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.admin-input,
+.admin-select,
+.admin-textarea {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  padding: 0 14px;
+  color: #0f172a;
+}
+
+.admin-input,
+.admin-select {
+  height: 44px;
+}
+
+.admin-textarea {
+  min-height: 96px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.admin-input:focus,
+.admin-select:focus,
+.admin-textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.16);
+}
+
+.admin-input.is-error,
+.admin-select.is-error,
+.admin-textarea.is-error {
+  border-color: #fb7185;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.12);
+}
+
+.admin-btn:disabled,
+.admin-btn-danger:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.admin-table {
+  width: 100%;
+  overflow: hidden;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-top: 1px solid #f1f5f9;
+}
+
+.admin-table thead th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #64748b;
+  border-top: 0;
+}
+
+.admin-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.admin-btn,
+.admin-btn-danger {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.admin-btn {
+  color: #0284c7;
+  background: #f0f9ff;
+}
+
+.admin-btn:hover {
+  background: #e0f2fe;
+}
+
+.admin-btn-danger {
+  color: #e11d48;
+  background: #fff1f2;
+}
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  border-radius: 999px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.admin-badge-ok {
+  color: #047857;
+  background: #ecfdf5;
+}
+
+.admin-badge-warn {
+  color: #b45309;
+  background: #fffbeb;
+}
+
+.admin-badge-mute {
+  color: #64748b;
+  background: #f1f5f9;
+}
